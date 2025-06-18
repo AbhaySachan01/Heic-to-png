@@ -54,4 +54,4 @@ def download_all():
     return send_from_directory(".", f"{zip_name}.zip", as_attachment=True)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
