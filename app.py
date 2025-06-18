@@ -53,5 +53,17 @@ def download_all():
     shutil.make_archive(zip_name, 'zip', OUTPUT_FOLDER)
     return send_from_directory(".", f"{zip_name}.zip", as_attachment=True)
 
+@app.route("/download/<path:filename>")
+def download_file(filename):
+    file_path = os.path.join(OUTPUT_FOLDER, filename)
+    if not os.path.exists(file_path):
+        print("❌ Not found:", file_path)
+        return
+    print("✅ Found:", file_path)
+    return send_from_directory(OUTPUT_FOLDER, filename, as_attachment=True)
+print("Current working dir:", os.getcwd())
+# print("Looking for file:", full_path)
+print("Files in OUTPUT_FOLDER:", os.listdir(OUTPUT_FOLDER))
+
 if __name__ == "__main__":
     app.run()
