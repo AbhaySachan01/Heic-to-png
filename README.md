@@ -4,9 +4,13 @@ Convert HEIC images to PNG format instantly through a modern and user-friendly w
 Built using **Flask**, **Pillow**, and **pillow-heif**, and deployable via **Render**.
 
 ## 🚀 Live Demo
-👉 [Visit App](https://heic-to-png-r6sb.onrender.com/)
+👉 [Visit](https://heic-to-png-r6sb.onrender.com/)
 
 ---
+
+## Download App
+👉 [Download](https://github.com/AbhaySachan01/Heic-to-png/releases/tag/v1/heic-to-png.exe)
+
 
 ## 🌟 Features
 
