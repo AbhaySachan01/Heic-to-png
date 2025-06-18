@@ -1,0 +1,135 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: gradientBG 15s ease infinite;
+    background: linear-gradient(-45deg, #6088c5, #24a220, #d24747, #adca37);
+    background-size: 400% 400%;
+    min-height: 100vh;
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+h2 {
+    margin: 40px 0 20px;
+    color: #2c3e50;
+    font-size: 32px;
+}
+
+form {
+    background: #fff;
+    padding: 30px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+    gap: 15px;
+}
+
+input[type="file"] {
+    font-size: 16px;
+    padding: 6px;
+}
+
+button {
+    padding: 10px 24px;
+    font-size: 16px;
+    background-color: #5c67f2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #4a55e1;
+}
+
+#convertBtn {
+    margin-top: 10px;
+}
+
+h3 {
+    margin-top: 30px;
+    color: #333;
+    font-size: 20px;
+}
+
+pre#progressArea {
+    background: #fff;
+    padding: 20px;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 700px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    text-align: left;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    color: #2d3436;
+    font-size: 15px;
+}
+
+#progressArea::before {
+    content: "🟢 ";
+    color: green;
+    font-weight: bold;
+}
+
+#resultLinks {
+    margin-top: 30px;
+    width: 100%;
+    text-align: center;
+}
+
+.download-all {
+    display: inline-block;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #27ae60;
+    text-decoration: none;
+}
+
+.download-all:hover {
+    text-decoration: underline;
+}
+
+.file-link {
+    margin: 10px 0;
+}
+
+.file-link a {
+    color: #2980b9;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.file-link a:hover {
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 600px) {
+    form {
+        width: 90%;
+        padding: 20px;
+    }
+
+    pre#progressArea {
+        width: 90%;
+    }
+}

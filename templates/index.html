@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HEIC to PNG Converter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2>HEIC to PNG Converter</h2>
+    <form id="uploadForm">
+        <input type="file" id="heic_files" name="heic_files" accept=".heic" multiple required><br><br>
+        <button type="submit">Upload</button>
+    </form>
+
+    <button id="convertBtn" style="display:none;">Convert to PNG</button>
+
+    <h3>Progress:</h3>
+    <pre id="progressArea"></pre>
+
+    <div id="resultLinks"></div>
+
+    <script>
+        const uploadForm = document.getElementById("uploadForm");
+        const convertBtn = document.getElementById("convertBtn");
+        const progressArea = document.getElementById("progressArea");
+        const resultLinks = document.getElementById("resultLinks");
+
+        uploadForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const files = document.getElementById("heic_files").files;
+            if (files.length === 0) return;
+
+            const formData = new FormData();
+            for (const file of files) {
+                formData.append("heic_files", file);
+            }
+
+            fetch("/upload", {
+                method: "POST",
+                body: formData
+            }).then(res => {
+                if (res.ok) {
+                    progressArea.innerText = "✅ Files uploaded. Now click 'Convert to PNG'.";
+                    convertBtn.style.display = "inline";
+                }
+            });
+        });
+
+        convertBtn.addEventListener("click", () => {
+            progressArea.innerText = "Converting files...\n";
+            fetch("/convert").then(response => {
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let buffer = "";
+
+                function readChunk() {
+                    reader.read().then(({ done, value }) => {
+                        if (done) return;
+
+                        buffer += decoder.decode(value);
+                        progressArea.innerText += decoder.decode(value);
+
+                        if (buffer.includes("DONE") && buffer.includes("FILES:")) {
+                            const listLine = buffer.split("FILES:")[1].trim();
+                            const filenames = listLine.split("|");
+                            let html = `<a class="download-all" href="/download-all">📦 Download All as ZIP</a><br><br>`;
+                            filenames.forEach(file => {
+                                html += `<div class="file-link"><a href="/download/${file}">⬇️ ${file}</a></div>`;
+                            });
+                            resultLinks.innerHTML = html;
+                        }
+
+                        readChunk();
+                    });
+                }
+
+                readChunk();
+            });
+        });
+    </script>
+</body>
+</html>
